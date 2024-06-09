@@ -13,7 +13,6 @@ const RegisterScreen = ({ handleRegister, setPage }) => {
   const [gender, setGender] = useState('');
 
   const handleSubmit = () => {
-    // Doğrulamaları burada gerçekleştiriyoruz
     if (!isValidName(name)) {
       alert('Lütfen geçerli bir isim giriniz.');
       return;
@@ -38,8 +37,6 @@ const RegisterScreen = ({ handleRegister, setPage }) => {
       alert('Lütfen geçerli bir yaş giriniz.');
       return;
     }
-
-    // Eğer doğrulama işlemi başarılıysa yeni kullanıcıyı oluştur
     const newUser = {
       name,
       surname,
@@ -54,7 +51,6 @@ const RegisterScreen = ({ handleRegister, setPage }) => {
     handleRegister(newUser);
   };
 
-  // Yardımcı fonksiyonlar
   const isValidName = (name) => /^[a-zA-ZğüşıöçĞÜŞİÖÇ\s]+$/.test(name);
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const isValidPassword = (password) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password);

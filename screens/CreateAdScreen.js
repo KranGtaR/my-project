@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Picker } from 'react-native';
 
 const CreateAdScreen = ({ handleCreateAd, setPage }) => {
   const [jobTitle, setJobTitle] = useState('');
@@ -7,6 +7,13 @@ const CreateAdScreen = ({ handleCreateAd, setPage }) => {
   const [jobDate, setJobDate] = useState('');
   const [jobTime, setJobTime] = useState('');
   const [price, setPrice] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+
+  const cities = ["Şehir Seç", "İstanbul", "İzmir", "Ankara", "Konya", "Bursa", "Antalya", "Gaziantep"];
+
+  const handleCityChange = (city) => {
+    setSelectedCity(city);
+  };
 
   const handleSubmit = () => {
     const newAd = {
@@ -14,7 +21,8 @@ const CreateAdScreen = ({ handleCreateAd, setPage }) => {
       jobDescription,
       jobDate,
       jobTime,
-      price
+      price,
+      city: selectedCity === "Şehir Seç" ? "" : selectedCity,
     };
     handleCreateAd(newAd);
     setPage('main');
@@ -53,6 +61,14 @@ const CreateAdScreen = ({ handleCreateAd, setPage }) => {
         value={price}
         onChangeText={(text) => setPrice(text)}
       />
+      <Picker
+        selectedValue={selectedCity}
+        onValueChange={(itemValue) => handleCityChange(itemValue)}
+      >
+        {cities.map((city, index) => (
+          <Picker.Item label={city} value={city} key={index} />
+        ))}
+      </Picker>
       <Button title="İlanı Kaydet" onPress={handleSubmit} />
       <Button title="İptal" onPress={() => setPage('main')} />
     </View>
